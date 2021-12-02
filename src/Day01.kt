@@ -1,17 +1,22 @@
+import java.util.concurrent.atomic.AtomicInteger
+
+private const val DAY_01_TXT = "Day01"
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val input = readInput(DAY_01_TXT)
+    val amountOfIncreased = AtomicInteger(0)
+    var prevVal: Int? = null
+
+    input.forEach { line ->
+        if (prevVal != null && isIncreased(prevVal!!, line.toInt())) {
+            amountOfIncreased.incrementAndGet()
+        }
+        prevVal = line.toInt()
+
     }
+    println(amountOfIncreased)
+}
 
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+fun isIncreased(prev: Int, current: Int): Boolean {
+    return prev < current
 }
